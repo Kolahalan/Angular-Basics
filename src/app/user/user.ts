@@ -1,5 +1,6 @@
 import { Component, input,computed, Output, EventEmitter,output, Input } from '@angular/core';
 import { Users } from '../models/User';
+import { Card } from "../shared/card/card";
 
 //import { DUMMY_USERS } from '../dummy-users';
 
@@ -8,7 +9,8 @@ import { Users } from '../models/User';
 @Component({
   selector: 'app-user',
   templateUrl: './user.html',
-  styleUrl: './user.css'
+  styleUrl: './user.css',
+  imports: [Card]
 })
 export class User {
   // @Input({required:true}) avatar!: string;

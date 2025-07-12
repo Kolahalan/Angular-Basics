@@ -3,6 +3,7 @@ import { Task } from "./task/task";
 import { DUMMY_TASKS } from '../dummy-tasks';
 import { NewTask } from "./new-task/new-task";
 import { NewTaskData } from '../models/User';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -13,53 +14,49 @@ import { NewTaskData } from '../models/User';
 export class Tasks {
 @Input() userId!:string ;
 @Input() name!:string;
-tasks = DUMMY_TASKS;
+//tasks = DUMMY_TASKS;
 isAddingTask = false;
 
+constructor(private tasksService:TasksService) {} //Dependency Injection
+
 get seletedUserTasks() {
-  return this.tasks.filter((task) => task.userId === this.userId) ;
+  return  this.tasksService.getUserTasks(this.userId);
 }
 
-onCompleteTask(id:string)
-{
-   this.tasks =  this.tasks.filter((task) => task.id !== id) ;
+// addDummyTask() {
+//   const newTask = {
+//     id: 'new_' + Date.now(), // unique ID
+//     userId: this.userId,
+//     title: 'New Task',
+//     summary: 'This is a newly added dummy task.',
+//     dueDate: '2025-12-31'
+//   };
 
-}
-
-addDummyTask() {
-  const newTask = {
-    id: 'new_' + Date.now(), // unique ID
-    userId: this.userId,
-    title: 'New Task',
-    summary: 'This is a newly added dummy task.',
-    dueDate: '2025-12-31'
-  };
-
-  this.tasks = [newTask, ...this.tasks]; // Add at the beginning
-}
+//   //this.tasks = [newTask, ...this.tasks]; // Add at the beginning
+// }
 
 onStartAddTask(){
 this.isAddingTask = true;
 }
 
-onCancelAddTask(){
+onCloseAddTask(){
 this.isAddingTask = false;
 }
 
-onAddTask(taskData:NewTaskData) {
-  const newTask = {
-    id: 'new_' + Date.now(), // unique ID
-    userId: this.userId,
-    title: taskData.title,
-    summary: taskData.summary,
-    dueDate: taskData.date
-  };
+// onAddTask(taskData:NewTaskData) {
+//   const newTask = {
+//     id: 'new_' + Date.now(), // unique ID
+//     userId: this.userId,
+//     title: taskData.title,
+//     summary: taskData.summary,
+//     dueDate: taskData.date
+//   };
 
-  this.tasks = [newTask, ...this.tasks]; // Add at the beginning
+//   //this.tasks = [newTask, ...this.tasks]; // Add at the beginning
 
-  this.isAddingTask = false;
+//   this.isAddingTask = false;
 
-}
+// }
 
 
 }

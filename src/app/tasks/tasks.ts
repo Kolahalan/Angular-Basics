@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Task } from "./task/task";
 import { DUMMY_TASKS } from '../dummy-tasks';
 import { NewTask } from "./new-task/new-task";
+import { NewTaskData } from '../models/User';
 
 @Component({
   selector: 'app-tasks',
@@ -44,5 +45,21 @@ this.isAddingTask = true;
 onCancelAddTask(){
 this.isAddingTask = false;
 }
+
+onAddTask(taskData:NewTaskData) {
+  const newTask = {
+    id: 'new_' + Date.now(), // unique ID
+    userId: this.userId,
+    title: taskData.title,
+    summary: taskData.summary,
+    dueDate: taskData.date
+  };
+
+  this.tasks = [newTask, ...this.tasks]; // Add at the beginning
+
+  this.isAddingTask = false;
+
+}
+
 
 }
